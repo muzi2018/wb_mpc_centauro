@@ -222,7 +222,7 @@ forceTorqueSensingInMpc         ; pass sensor measurements (estimated wrench or 
     estimatedWrenches               false
     jointStates                     false
 }
-publishJointImpedancePolicy         false
+publishJointImpedancePolicy         true
 
 initialState
 {

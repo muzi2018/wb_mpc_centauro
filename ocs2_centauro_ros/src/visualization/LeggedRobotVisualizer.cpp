@@ -90,7 +90,7 @@ LeggedRobotVisualizer::LeggedRobotVisualizer(PinocchioInterface pinocchioInterfa
 /******************************************************************************************************/
 void LeggedRobotVisualizer::launchVisualizerNode(ros::NodeHandle& nodeHandle) {
   costDesiredBasePositionPublisher_ = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredBaseTrajectory", 1);
-  costDesiredFeetPositionPublishers_.resize(centroidalModelInfo_.numThreeDofContacts);
+  costDesiredFeetPositionPublishers_.resize(4);
   costDesiredFeetPositionPublishers_[0] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/LF", 1);
   costDesiredFeetPositionPublishers_[1] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/RF", 1);
   costDesiredFeetPositionPublishers_[2] = nodeHandle.advertise<visualization_msgs::Marker>("/legged_robot/desiredFeetTrajectory/LH", 1);
@@ -342,7 +342,7 @@ void LeggedRobotVisualizer::publishDesiredTrajectory(ros::Time timeStamp, const 
 
   // Publish
   costDesiredBasePositionPublisher_.publish(comLineMsg);
-  for (size_t i = 0; i < centroidalModelInfo_.numThreeDofContacts; i++) {
+  for (size_t i = 0; i < 4; i++) {
     auto footLineMsg = getLineMsg(std::move(desiredFeetPositionMsgs[i]), feetColorMap_[i], trajectoryLineWidth_);
     footLineMsg.header = getHeaderMsg(frameId_, timeStamp);
     footLineMsg.id = 0;
